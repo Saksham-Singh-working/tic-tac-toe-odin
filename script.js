@@ -13,7 +13,6 @@ function Player(name, marker){
 let player1 = new Player("Saksham", "X");
 let player2 = new Player("Sakshi", "O");
 
-
 function checkWin(){
     for(let i = 0;i < 3;i++){
         if((state[i][0] == state[i][1] && state[i][1] == state[i][2]) && state[i][0] != '-'){
@@ -47,5 +46,59 @@ function checkWin(){
 }
 
 function game(){
-    
+    let clickables = Array.from(document.querySelectorAll(".container > div"));
+    let heading = document.querySelector(".heading");
+    let turn = "Player 1";
+    clickables.forEach((element) => {
+        element.addEventListener("click", () => {
+            let styles = window.getComputedStyle(element);
+            let class_value = element.getAttribute("class");
+            let [row, column] = class_value.split("_");
+            if(element.textContent === ""){
+                if(turn == "Player 1"){
+                    element.textContent = player1.marker;
+                    state[row][column] = player1.marker;
+                    turn = "Player 2";
+                    result = checkWin();
+                    if(result !== null){
+                        if(result == "draw"){
+                            heading.textContent = "Draw!";
+                        }
+                        else{
+                            let winner = ""
+                            if(result == "X"){
+                                winner = player1.name;
+                            }
+                            else{
+                                winner = player2.name;
+                            }
+                            heading.textContent = `${winner} wins!`
+                        }
+                    }
+                }
+                else{
+                    element.textContent = player2.marker;
+                    state[row][column] = player2.marker;
+                    turn = "Player 1";
+                    result = checkWin();
+                    if(result !== null){
+                        if(result == "draw"){
+                            heading.textContent = "Draw!";
+                        }
+                        else{
+                            let winner = ""
+                            if(result == "X"){
+                                winner = player1.name;
+                            }
+                            else{
+                                winner = player2.name;
+                            }
+                            heading.textContent = `${winner} wins!`
+                        }
+                    }
+                }
+            }
+        });
+    })
 }
+
