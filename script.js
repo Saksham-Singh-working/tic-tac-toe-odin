@@ -102,3 +102,14 @@ function game(){
     })
 }
 
+document.querySelector("form").addEventListener("submit", () =>  {
+    event.preventDefault();
+    player1.name = document.querySelector("#name1").value;
+    player2.name = document.querySelector("#name2").value;
+    player1.marker = document.querySelector("#marker1").value;
+    player2.marker = document.querySelector("#marker2").value;
+    document.querySelector(".big-container").style.display = "flex";
+    document.querySelector(".heading").style.display = "block";
+    game();
+    document.querySelector("form").style.display = "none";
+});
