@@ -25,38 +25,27 @@ function checkWin(){
             return state[0][i];
         }
     }
-    if((state[0][0] == state[1,1] && state[2,2] == state[1][1]) && state[1][1] != '-'){
+    if((state[0][0] == state[1][1] && state[2][2] == state[1][1]) && state[1][1] != '-'){
         return state[1][1];;
     }
     
-    if((state[0][2] == state[1,1] && state[2,0] == state[1][1]) && state[1][1] != '-'){
+    if((state[0][2] == state[1][1] && state[2][0] == state[1][1]) && state[1][1] != '-'){
         return state[1][1];
     }
-    if(player1.count == player2.count){
+    let draw = true;
+    let flat_state = state.flat()
+    flat_state.forEach((element) => {
+        if(element == "-"){
+            draw = false;
+        }
+    });
+    if(draw){
         return "draw";
     }
+
     return null;
 }
 
 function game(){
-    while(true){
-        let {row1, column1} = prompt(`${player1.name}, enter your choice`).split(" ");
-        player1.count++;
-        let {row2, column2} = prompt(`${player2.name}, enter your choice`).split(" ");
-        player2.count++;
-        state[row1][column1] = player1.marker;
-        state[row2][column2] = player2.marker;
-        let result = checkWin();
-        if(result === null){
-            continue
-        }
-        else if(result == "draw"){
-            alert("The game is a draw!");
-            break;
-        }
-        else{
-            alert(`${result} won the game!`);
-            break;
-        }
-    }
+    
 }
